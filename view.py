@@ -10,10 +10,28 @@ class View(object):
         self._controller = None
 
     def caricaInterfaccia(self):
+
         self._titolo = ft.Text("Indovina il numero",
                                color="blue", size=24)
+        # row1
+        self._txtNmax = ft.TextField(label="N max", disabled=True, value=self._controller.getNmax())
+        self._txtMmax = ft.TextField(label="Tentativi max", disabled=True, value=self._controller.getMmax())
+        self._txtMrim = ft.TextField(label="Tentativi rimasti", disabled=True, value=self._controller.getMrim())
+        row1 = ft.Row([self._txtNmax, self._txtMmax, self._txtMrim], alignment=ft.MainAxisAlignment.CENTER)
 
-        self._page.add(self._titolo)
+
+        #row2
+        self._txtTentativo = ft.TextField(label="Tentativo", disabled=True)
+        self._btnNuova = ft.ElevatedButton(text="Nuova partita",
+                                           on_click=self._controller.handleNuova)
+        self._btnProva = ft.ElevatedButton(text="Prova", on_click=self._controller.handleProva, disabled=True)
+
+        row2 = ft.Row([self._btnNuova, self._txtTentativo, self._btnProva], alignment=ft.MainAxisAlignment.CENTER)
+
+        #row3
+        self._lvOut = ft.ListView()
+
+        self._page.add(self._titolo, row1, row2, self._lvOut)
 
     def setController(self, controller):
         self._controller = controller
